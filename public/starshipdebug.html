@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starshipit API Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #trackingInfoContainer {
+            margin-top: 20px;
+        }
+        .tracking-box {
+            margin-bottom: 20px;
+        }
+        .tracking-time-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .tracking-time {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .tracking-location {
+            display: flex;
+            align-items: center;
+        }
+        .dott {
+            width: 10px;
+            height: 10px;
+            background-color: #000;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .event-details {
+            flex: 1;
+        }
+        .event-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .event-description {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Starshipit API Debug</h1>
+
+    <div id="trackingInfoContainer"></div>
+
+    <script>
+        async function fetchStarshipitTrackingInformation(salesOrderNumber) {
+            try {
+                const response = await fetch(`https://api.starshipit.com/api/track?tracking_number=${salesOrderNumber}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'StarShipIT-Api-Key': '7dd067f14a6149e295496588dbe55b36',
+                        'Ocp-Apim-Subscription-Key': '3333d469fde64b5cb9517e6c6904ee60'
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch Starshipit tracking information');
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('Error:', error);
+                return null;
+            }
+        }
+
+        async function displayStarshipitTrackingInfo(trackingInfo) {
+            const container = document.getElementById('trackingInfoContainer');
+            let htmlContent = '';
+
+            if (trackingInfo.success && trackingInfo.results) {
+                const { results } = trackingInfo;
+                const { tracking_events } = results;
+
+                tracking_events.forEach(event => {
+                    const eventDate = new Date(event.event_datetime).toLocaleDateString('en-UK', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    const eventTime = new Date(event.event_datetime).toLocaleTimeString('en-UK', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    htmlContent += `
+                        <div class="tracking-box">
+                            <div class="tracking-time-box">
+                                <div class="tracking-time">${eventDate}</div>
+                                <p>${eventTime}</p>
+                            </div>
+                            <div class="tracking-location style-three">
+                                <span class="dott"></span>
+                                <div class="event-details">
+                                    <strong class="event-title">${event.status}</strong>
+                                    <p class="event-description">${event.details}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                console.error('No Starshipit tracking information available.');
+                htmlContent = `<p>No Starshipit tracking information available for this order.</p>`;
+            }
+
+            container.innerHTML = htmlContent;
+        }
+
+        async function debugStarshipitTracking() {
+            const salesOrderNumber = '4547720003165901AKL023AN';
+
+            const trackingInfo = await fetchStarshipitTrackingInformation(salesOrderNumber);
+            console.log('Tracking Info:', trackingInfo);
+
+            if (trackingInfo) {
+                await displayStarshipitTrackingInfo(trackingInfo);
+            } else {
+                console.error('No Starshipit tracking information available for this order.');
+            }
+        }
+
+        // Call the debugStarshipitTracking function when the page loads
+        window.onload = debugStarshipitTracking;
+    </script>
+</body>
+</html>
