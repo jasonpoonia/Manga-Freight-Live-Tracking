@@ -257,7 +257,9 @@ async function displayTrackingInfo(taskEvents) {
 
             switch (event.event) {
                 case "activate":
-                    return;
+                    eventTitle = "Out for Delivery";
+                    eventDescription = "Your package is out for delivery. Expected arrival: Today or Tomorrow.";
+                    break;
                 case "cancel":
                     eventTitle = "Shipment Cancelled";
                     eventDescription = "This shipment has been cancelled. If you believe this is an error, please contact customer support.";
