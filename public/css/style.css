@@ -4808,3 +4808,246 @@ nav li.new-item a {
     color: black;
     margin-top: 5px;
 }
+
+/* Base styles */
+.tracking-container {
+    min-height: calc(100vh - 100px);
+    padding: 2rem 1rem;
+}
+
+.tracking-wrapper {
+    max-width: 48rem;
+    margin: 0 auto;
+}
+
+/* Header styles */
+.tracking-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.tracking-header h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.tracking-header p {
+    color: #6b7280;
+}
+
+/* Search box styles */
+.tracking-search {
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    color: #9ca3af;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #F24C21;
+}
+
+.search-button {
+    position: absolute;
+    right: 0.5rem;
+    background-color: #F24C21;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #D90429;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: none;
+    justify-content: center;
+    padding: 3rem 0;
+}
+
+.spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #F24C21;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Results container */
+.tracking-results {
+    display: none; /* Add this line */
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Header info */
+.tracking-header-info {
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.tracking-header-info h5 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.tracking-header-info p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Timeline and events */
+.tracking-timeline {
+    position: relative;
+    padding-top: 0.5rem;
+}
+
+.tracking-box {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.tracking-box:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.tracking-box:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    background-color: #F24C21;
+    border: 4px solid #fdf2f2;
+    border-radius: 50%;
+}
+
+.tracking-box:not(:last-child):after {
+    content: '';
+    position: absolute;
+    left: 0.45rem;
+    top: 1.5rem;
+    bottom: 0;
+    width: 2px;
+    background-color: #e5e7eb;
+}
+
+.tracking-time-box {
+    margin-bottom: 0.5rem;
+}
+
+.tracking-time {
+    font-weight: 600;
+    color: #111827;
+    font-size: 0.875rem;
+}
+
+.tracking-time-box p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.tracking-location {
+    background-color: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.event-title {
+    display: block;
+    color: #111827;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.event-description {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.event-location {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Error message */
+.error-message {
+    text-align: center;
+    color: #F24C21;
+    padding: 1rem;
+    background-color: #fef2f2;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .search-button {
+        position: relative;
+        right: 0;
+        width: 100%;
+        margin-top: 0.5rem;
+        justify-content: center;
+    }
+
+    .search-input {
+        padding-right: 1rem;
+    }
+
+    .tracking-box {
+        padding-left: 1.5rem;
+    }
+}

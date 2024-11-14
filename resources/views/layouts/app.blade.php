@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>TSB Living Track & Trace</title>
+    <title>Manga Freight Tracking</title>
     <!-- Stylesheets -->
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}?v=1.2" rel="stylesheet">

@@ -19,20 +19,28 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault(); // Prevent the default form submission
         hideDiv(); // Hide the form and show the loading gif
 
-        // Get the input value and use it directly
-        const salesOrderNumber = document.getElementById('salesOrderNumber').value.trim().toUpperCase();
+        // Get and process the input value
+        const originalInput = document.getElementById('salesOrderNumber').value.trim().toUpperCase();
+        let processedNumber = originalInput;
 
-        const isInternal = /^(SO|Kiwi Home Store|S|FP|#|TSB|AKL|AKL1|AKL2|AKL3|AKL4|AKL5|AKL11|AKL15|WLG|WLG1|WLG2|CHCH|CHCH1|CHCH2|CHC)/.test(salesOrderNumber.split('/')[0]);
+        // Handle internal order numbers
+        if (/^(SO|Kiwi Home Store|S|FP|#|TSB|AKL|AKL1|AKL2|AKL3|AKL4|AKL5|AKL11|AKL15|WLG|WLG1|WLG2|CHCH|CHCH1|CHCH2|CHC)/.test(originalInput)) {
+            // Extract just the number part, ignoring prefix and suffix
+            const baseNumber = originalInput.match(/\d+/)[0];
+            processedNumber = `SO${baseNumber}`;
+        }
+
+        const isInternal = /^(SO|Kiwi Home Store|S|FP|#|TSB|AKL|AKL1|AKL2|AKL3|AKL4|AKL5|AKL11|AKL15|WLG|WLG1|WLG2|CHCH|CHCH1|CHCH2|CHC)/.test(originalInput.split('/')[0]);
 
         try {
             if (isInternal) {
                 document.getElementById('externalTrackingContainer').style.display = "none";
                 document.getElementById('trackingInfoContainer').style.display = "block";
-                await fetchAndDisplayInternalTracking(salesOrderNumber);
+                await fetchAndDisplayInternalTracking(processedNumber);
             } else {
                 document.getElementById('trackingInfoContainer').style.display = "none";
                 document.getElementById('externalTrackingContainer').style.display = "block";
-                await renderExternalWidget(salesOrderNumber);
+                await renderExternalWidget(originalInput);
             }
         } catch (error) {
             console.error('An error occurred:', error);
@@ -43,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// And also add this function to handle the multiple attempts for fetching tracking info
 async function fetchAndDisplayInternalTracking(originalSalesOrderNumber) {
     let trackingInfo = await fetchTaskEventsByOrderNumber(originalSalesOrderNumber);
 

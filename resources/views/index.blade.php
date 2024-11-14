@@ -1,78 +1,45 @@
 @extends('layouts.app')
 @section('content')
-
-    <!--Page Title
-    <section class="page-title" style="background-image:url({{asset('images/cover.jpg')}});">
-        <div class="auto-container">
-            <h2>Track & Trace</h2>
-            <div class="separater"></div>
-        </div>
-    </section>
--->
-    <!--Breadcrumb
-    <div class="breadcrumb-outer">
-        <div class="auto-container">
-            <ul class="bread-crumb text-center">
-                <li><a href="https://tsbliving.co.nz">Home</a> <span>/</span></li>
-                <li>Track & Trace</li>
-            </ul>
-        </div>
-    </div>
-    -->
-    <!--End Page Title-->
-
-    <!--Sidebar Page Container-->
-    <div class="sidebar-page-container">
-        <div class="auto-container" style="padding:20px;">
-            <div class="row clearfix">
-
-                <!--Content Side-->
-                <div class="content-side" style="width: 100%;">
-                    <div class="track-section">
-                        <!-- Sec Title Two 
-                            <div class="logo">
-                                <a href="{{url('/')}}">
-                                    <img src="{{asset('images/icons/Asset_1Red_400x.avif')}}" alt="" title="" width="300px">
-                                </a>
-                            </div>
-                            -->
-                        <!--<div class="sec-title-two sec-title">-->
-                        <!--    <h2>Track & <span>Trace Shipment</span></h2>-->
-                        <!--    <div class="separater"></div>-->
-                        <!--</div>-->
-                        <div id="loadingGif" style="display:none">
-                            <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="">
-                        </div>
-
-                        <!-- Track Form -->
-                        <div class="track-form-two">
-                            <form id="trackForm">
-                                <div class="form-group">
-                                    <label>Enter Tracking Code Here</label>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" id="salesOrderNumber"
-                                       placeholder="Enter your tracking code here e.g SOXXXXX"
-                                       value="{{request('order','')}}"
-                                    >
-                                    <button type="submit" class="theme-btn submit-btn">Track Your Shipment</button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- Dynamic tracking info will be inserted here -->
-                        <div id="trackingInfoContainer" class="tracking-info-detail"></div>
-                        
-                        <!-- External Tracking Container -->
-                        <div id="externalTrackingContainer"></div>
-                    </div>
+<div class="tracking-container">
+    <div class="tracking-wrapper">
+        <!-- Search Box Section -->
+        <div class="tracking-search">
+            <form id="trackForm">
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" 
+                           id="salesOrderNumber"
+                           placeholder="Enter your tracking number (e.g., TSB123456, SO123456)"
+                           class="search-input"
+                           value="{{request('order','')}}"
+                    >
+                    <button type="submit" class="search-button">
+                        <svg class="package-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"></path>
+                            <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"></path>
+                            <path d="M12 3v6"></path>
+                        </svg>
+                        Track
+                    </button>
                 </div>
-
-
-            </div>
+            </form>
         </div>
-    </div>
 
+        <!-- Loading Indicator -->
+        <div id="loadingGif" class="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Tracking Results -->
+        <div id="trackingInfoContainer" class="tracking-results"></div>
+
+        <!-- External Tracking Container -->
+        <div id="externalTrackingContainer" class="tracking-results"></div>
+    </div>
+</div>
 @endsection
 
 @push('js')
